@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GitHub issues Tracker</title>
+    <!-- tailwindcss + daisy Ui-->
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@5"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- css -->
+    <link rel="stylesheet" href="tailwind.init.css" />
+    <!-- font  cdn -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <section class="w-[520px] h-[743px] mx-auto mt-10 pb-200 rounded-2xl mb-20 bg-white shadow-2xl">
+      <div class="space-y-2 mx-auto">
+        <img class="mx-auto pt-15" src="./assets/github-logo.png" alt="" />
+        <div class="pt-5 pb-10 text-center">
+          <h1 class="text-2xl">GitHub Issues Tracker</h1>
+          <p class="text-[#64748B] pt-1">Sign in to manage your issues</p>
+        </div>
+      </div>
+
+      <fieldset
+        class="fieldset rounded-box w-full  p-8 mx-auto"
+      >
+        <label class="label text-[15px] font-bold text-[#414244]"
+          >Username</label
+        >
+        <input
+          type="Username"
+          class="input w-full [7px]"
+          placeholder="Enter Username"
+          id="input-username"
+          value = admin
+        />
+
+        <label class="label mt-6 text-[15px] font-bold text-[#414244]"
+          >Password</label
+        >
+        <input
+          type="password"
+          class="input w-full [7px]"
+          placeholder="Password"
+          id="input-password"
+        />
+
+        <button id="btn-sign" class="btn bg-[#4A00FF] text-white rounded-[7px] mt-5">
+          Sign In
+        </button>
+      </fieldset>
+
+      <div class="divider px-8">OR</div>
+      <p class="pt-5 text-[#64748B] text-center">Demo Credentials:</p>
+
+      <div class="bg-[#F8FAFC] py-5 text-center mx-8">
+        <p><span class="font-bold text-[#414244]">Username:</span> admin</p>
+        <p><span class="font-bold text-[#414244]">Password: </span>admin123</p>
+      </div>
+    </section>
+
+    <script src="login.js"></script>
+  </body>
+</html>
