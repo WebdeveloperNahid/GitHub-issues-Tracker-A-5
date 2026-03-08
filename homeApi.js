@@ -1,0 +1,160 @@
+
+// loadingSpinner id ke dorbo
+
+const loadingSpinner = document.getElementById("loadingSpinner");
+
+//for loadingSpinner function
+
+function showLoading() {
+  loadingSpinner.classList.remove("hidden");
+  // dataDiv.innerHTML = "";
+}
+
+function hiddenLoading() {
+  loadingSpinner.classList.add("hidden");
+};
+
+
+
+const dataLod = () => {
+
+  showLoading();
+
+  fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues")
+    .then((res) => res.json())
+    .then((data) => {
+      allIssues = data.data
+      dataDisplay(allIssues);
+      hiddenLoading();
+      
+    })
+   
+};
+
+
+//------------------------------------------------------------
+//For All , Open , Closed batus selection showing
+
+const allBtn = document.getElementById("all-btn");
+const openBtn = document.getElementById("open-btn");
+const closedBtn = document.getElementById("closed-btn");
+
+function toggleFun(id) {
+  allBtn.classList.remove("btn-primary");
+  openBtn.classList.remove("btn-primary");
+  closedBtn.classList.remove("btn-primary");
+
+  allBtn.classList.add("btn-outline","btn-primary");
+  openBtn.classList.add("btn-outline","btn-primary");
+  closedBtn.classList.add("btn-outline","btn-primary");
+
+  const selectedBtn = document.getElementById(id);
+  
+  currentStatus = id;
+  selectedBtn.classList.remove("btn-outline");
+  selectedBtn.classList.add("btn-primary")
+}
+//----------------------------------------
+//--------------------------------------------------------------------------------
+//This is Filter section ,all,open & closed bnt a click korle tarder vitore tader property gula dukbe *****
+
+// document.getElementById("all-btn") === allBtn  So we can wright
+
+allBtn.addEventListener("click",() => {
+  dataDisplay(allIssues);
+})
+
+
+
+// let allIssues = [];
+
+openBtn.addEventListener("click",() => {
+  // document.getElementById("all-btn") === openBtn  So we can wright
+  const openIssues = allIssues.filter(da =>da.status.toLowerCase()=== "open");
+  dataDisplay(openIssues);
+})
+
+closedBtn.addEventListener("click",()=>{
+  const closedIssues = allIssues.filter(da => da.status === "closed");
+  dataDisplay(closedIssues);
+})
+
+//-----------------------------------------------------------------------------
+
+const dataDisplay = (datas) => {
+  // 1st id ke dorbo
+
+  const dataContainer = document.getElementById("data-container");
+  dataContainer.innerHTML = "";
+
+  // 2nd data ke loop kete hobe
+
+  datas.forEach((da) => {
+    console.log(da);
+
+    // create new div for daynamicaly update from Api
+
+    const dataDiv = document.createElement("div");
+
+    //status img randomly korar jonno
+    const statusImg = da.status.toLowerCase() === "open" ? "assets/Open-Status.png" : "assets/Closed-Status.png"
+
+    dataDiv.innerHTML = `
+        <div class="p-6 w-[300px] h-[253]  space-y-2 rounded-2xl border-t-4    border-green-500 shadow-2xl ">
+
+          <div class="flex justify-between items-center">
+            <img src="${statusImg}"  alt="${da.status} ">
+            <button class="btn btn-active btn-error px-8 rounded-2xl py-1">${da.priority} </button>
+          </div>
+
+          <h1 class ="text-[19px] font-semibold " >${da.title} </h1>
+          <p>${da.description} </p>
+
+          <div class="flex justify-start items-center gap-2 pb-3">
+            <button class="btn btn-active btn-error px-4 rounded-2xl py-1 text-[#EF4444] bg-[#FECACA]  "><span><i class="fa-solid fa-bug"></i></span>${da.labels[0]} </button>
+            <button class="btn btn-active btn-error w-40 rounded-2xl py-1 text-[#D97706] bg-[#FDE68A]"><span><i class="fa-solid fa-life-ring"></i></span>${da.labels[1]}</button>
+          </div>
+
+          <hr class="text-[#4e4e4e62] border-1">
+
+          <p>${da.author} </p>
+          <span>${da.createdAt} </span>
+        </div>`;
+
+    // append korbo
+
+    dataContainer.append(dataDiv);
+  });
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+dataLod();
+
+
+
+
+

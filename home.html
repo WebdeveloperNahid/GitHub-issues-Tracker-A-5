@@ -11,8 +11,7 @@
       type="text/css"
     />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <!-- css -->
-    <link rel="stylesheet" href="tailwind.init.css" />
+    
     <!-- font  cdn -->
     <link
       rel="stylesheet"
@@ -21,6 +20,8 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <!-- css -->
+    <link rel="stylesheet" href="tailwind.init.css"/>
   </head>
   <body>
     <nav class="flex justify-between items-center w-full h-15 bg-white shadow-2xl">
@@ -58,9 +59,9 @@
 
     <section class=" w-[80%] mx-auto  h-[88px] shadow-2xl flex items-center pl-6 mt-[50px] ">
       <div class="gap-2">
-        <button class="btn btn-primary px-7">All</button>
-        <button class="btn btn-outline btn-primary px-7">Open</button>
-        <button class="btn btn-outline btn-primary px-7">Closed</button>
+        <button onclick="toggleFun(id)" id="all-btn" class="btn btn-primary px-7">All</button>
+        <button onclick="toggleFun(id)" id="open-btn" class="btn btn-outline btn-primary px-7">Open</button>
+        <button onclick="toggleFun(id)" id="closed-btn" class="btn btn-outline btn-primary px-7">Closed</button>
       </div>
     </section>
 
@@ -86,9 +87,9 @@
 
       <!-- there  will be daynamekaly Update Data From API -->
 
-      <div class="p-6 gap-2 shadow-2xl ">
+      <div id="data-container" class="p-6 gap-4 shadow-2xl flex flex-wrap justify-center">
 
-        <div class="p-6 w-[300px] h-[253] flex-wrap space-y-2 rounded-2xl border-t-4 border-green-500 shadow-2xl">
+        <!-- <div class="p-6 w-[300px] h-[253]  space-y-2 rounded-2xl border-t-4 border-green-500 shadow-2xl mx-auto">
 
           <div class="flex justify-between items-center">
             <img src="assets/Open-Status.png" alt="">
@@ -103,16 +104,22 @@
             <button class="btn btn-active btn-error w-40 rounded-2xl py-1 text-[#D97706] bg-[#FDE68A]"><span><i class="fa-solid fa-life-ring"></i></span>HELP WANTED</button>
           </div>
 
-          <hr>
+          <hr class="text-[#4e4e4e62] border-1">
 
           <p># by john_doe</p>
           <span>1/15/2024</span>
-
         </div>
-
+        -->
+      
       </div>
-
     </section>
+
+    <section class=" w-[100%] flex justify-center mt-20">
+      <span id="loadingSpinner" class=" hidden w-[20%] loading loading-spinner loading-xl"></span>
+      
+    </section>
+
+    <script src="homeApi.js"></script>
 
   </body>
 </html>
