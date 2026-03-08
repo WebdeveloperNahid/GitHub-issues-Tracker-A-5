@@ -116,9 +116,6 @@ const dataDisplay = (datas) => {
     //status img randomly korar jonno
     const statusImg = da.status.toLowerCase() === "open" ? "assets/Open-Status.png" : "assets/Closed-Status.png"
 
-    //search er and find
-
-    const inputSearch = document.getElementById("")
 
 
     dataDiv.innerHTML = `
@@ -153,11 +150,15 @@ const dataDisplay = (datas) => {
   });
 };
 
-
-
 dataLod();
 
+//search filter secation 
 
+document.getElementById("search-btn").addEventListener("click",() =>{
+  const searchValue = document.getElementById("search-input");
+  const searchValueInput = searchValue.value.trim().toLocaleLowerCase();
 
-
+  const yourInput = allIssues.filter(word => word.title.toLocaleLowerCase().includes(searchValueInput));
+  dataDisplay(yourInput)
+})
 
