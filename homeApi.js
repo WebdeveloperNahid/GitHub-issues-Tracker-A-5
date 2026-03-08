@@ -32,7 +32,6 @@ const dataLod = () => {
       allIssues = data.data
       dataDisplay(allIssues);
       hiddenLoading();
-      
     })
    
 };
@@ -106,7 +105,7 @@ const dataDisplay = (datas) => {
 
 
   // 2nd data ke loop kete hobe
-  
+
   datas.forEach((da) => {
     console.log(da);
 
@@ -117,8 +116,13 @@ const dataDisplay = (datas) => {
     //status img randomly korar jonno
     const statusImg = da.status.toLowerCase() === "open" ? "assets/Open-Status.png" : "assets/Closed-Status.png"
 
+    //search er and find
+
+    const inputSearch = document.getElementById("")
+
+
     dataDiv.innerHTML = `
-        <div class="p-6 w-[300px] h-[253]  space-y-2 rounded-2xl border-t-4    border-green-500 shadow-2xl ">
+        <div class="p-6  space-y-2 rounded-2xl border-t-4    border-green-500 shadow-2xl ">
 
           <div class="flex justify-between items-center">
             <img src="${statusImg}"  alt="${da.status} ">
@@ -129,14 +133,18 @@ const dataDisplay = (datas) => {
           <p>${da.description} </p>
 
           <div class="flex justify-start items-center gap-2 pb-3">
-            <button class="btn btn-active btn-error px-4 rounded-2xl py-1 text-[#EF4444] bg-[#FECACA]  "><span><i class="fa-solid fa-bug"></i></span>${da.labels[0]} </button>
+            ${da.labels[0] ? `
+            <button class="btn btn-active btn-error px-4 rounded-2xl py-1 text-[#EF4444] bg-[#FECACA]  "><span><i class="fa-solid fa-bug"></i></span>${da.labels[0]} </button> `: "" }
+            ${da.labels[1] ? `
             <button class="btn btn-active btn-error w-40 rounded-2xl py-1 text-[#D97706] bg-[#FDE68A]"><span><i class="fa-solid fa-life-ring"></i></span>${da.labels[1]}</button>
+            ` : "" }
           </div>
 
           <hr class="text-[#4e4e4e62] border-1">
 
-          <p>${da.author} </p>
-          <span>${da.createdAt} </span>
+          <p> #1 by ${da.author}</p>
+          <span>${da.createdAt}</span>
+          
         </div>`;
 
     // append korbo
@@ -144,29 +152,6 @@ const dataDisplay = (datas) => {
     dataContainer.append(dataDiv);
   });
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
