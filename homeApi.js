@@ -114,27 +114,102 @@ const dataDisplay = (datas) => {
     const dataDiv = document.createElement("div");
 
     //status img randomly korar jonno
-    const statusImg = da.status.toLowerCase() === "open" ? "assets/Open-Status.png" : "assets/Closed-Status.png"
+    const statusImg = da.status.toLowerCase() === "open" ? "assets/Open-Status.png" : "assets/image.png"
+
+    let priorityClass = " ";
+
+    if(da.priority.toLocaleLowerCase() ==="high"){
+      priorityClass = " text-[#EF4444] bg-[#FECACA] font-semibold"
+    }
+    
+    if(da.priority.toLocaleLowerCase() ==="medium"){
+      priorityClass = "text-[#D97706] bg-[#FDE68A] font-semibold"
+    }
+
+    let borderColor = " ";
+    if(da.status.toLocaleLowerCase() === "open") {
+      borderColor  = "border-green-500"
+    }else{
+      borderColor = "border-[#A855F7]"
+    }
 
 
+//------------------------------------------------------------------------------
+    //ENHANCEMENT BUTTON CREATE if habe or other button habe then show
+
+    let labelButtons = "";
+
+// check enhancement ache kina
+const hasEnhancement = da.labels && da.labels.some(
+  label => label.toLowerCase() === "enhancement"
+);
+
+if (hasEnhancement) {
+
+  // only enhancement button
+  labelButtons = `
+    <button class="btn px-2 rounded-2xl py-1 uppercase text-[#00A96E] bg-[#BBF7D0] font-semibold">
+      <span><i class="fa-solid fa-wand-magic-sparkles"></i></span>
+      ENHANCEMENT
+    </button>
+  `;
+
+} else {
+
+  // enhancement na thakle bug / help wanted
+  da.labels.forEach((lbl) => {
+
+    let lblClass = "";
+    let icon = "";
+
+    if (lbl.toLowerCase() === "bug") {
+      lblClass = "text-[#EF4444] bg-[#FECACA]";
+      icon = "fa-bug";
+    }
+
+    if (lbl.toLowerCase() === "help wanted") {
+      lblClass = "text-[#D97706] bg-[#FDE68A]";
+      icon = "fa-life-ring";
+    }
+
+    if (lbl.toLowerCase() === "documentation") {
+      lblClass = "bg-sky-300 text-sky-800 ";
+      icon = "fa-file-lines";
+    }
+
+    if (lbl.toLowerCase() === "good first issue") {
+      lblClass = "bg-purple-300 text-purple-800 ";
+      icon = "fa-seedling";
+    }
+
+    labelButtons += `
+      <button class="btn px-2 rounded-2xl py-1 uppercase ${lblClass}">
+        <span><i class="fa-solid ${icon}"></i></span>
+        ${lbl}
+      </button>
+    `;
+  });
+
+}
+      
+
+    //-------------------------------------------------
 
     dataDiv.innerHTML = `
-        <div class="p-6  space-y-2 rounded-2xl border-t-4    border-green-500 shadow-2xl ">
+        <div class="p-6  space-y-2 rounded-2xl border-t-4  ${borderColor}   shadow-2xl ">
 
           <div class="flex justify-between items-center">
             <img src="${statusImg}"  alt="${da.status} ">
-            <button class="btn btn-active btn-error px-8 rounded-2xl py-1">${da.priority} </button>
+            <button class="btn-high text-[#9CA3AF] bg-[#EEEFF2] px-8 rounded-2xl py-1 uppercase ${priorityClass} ">${da.priority} </button>
           </div>
 
           <h1 class ="text-[19px] font-semibold " >${da.title} </h1>
-          <p>${da.description} </p>
+          <p class = "line-clamp-2 " >${da.description} </p>
 
           <div class="flex justify-start items-center gap-2 pb-3">
-            ${da.labels[0] ? `
-            <button class="btn btn-active btn-error px-4 rounded-2xl py-1 text-[#EF4444] bg-[#FECACA]  "><span><i class="fa-solid fa-bug"></i></span>${da.labels[0]} </button> `: "" }
-            ${da.labels[1] ? `
-            <button class="btn btn-active btn-error w-40 rounded-2xl py-1 text-[#D97706] bg-[#FDE68A]"><span><i class="fa-solid fa-life-ring"></i></span>${da.labels[1]}</button>
-            ` : "" }
+
+           ${labelButtons}
+          
           </div>
 
           <hr class="text-[#4e4e4e62] border-1">
