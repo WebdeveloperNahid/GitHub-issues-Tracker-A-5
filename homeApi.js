@@ -14,7 +14,13 @@ function hiddenLoading() {
   loadingSpinner.classList.add("hidden");
 };
 
+//Issues count 
 
+const countIssues = document.getElementById("count");
+
+// function updateCount (count) {
+//   countIssues.innerText = count;
+// }
 
 const dataLod = () => {
 
@@ -62,9 +68,11 @@ function toggleFun(id) {
 
 allBtn.addEventListener("click",() => {
   dataDisplay(allIssues);
+  //  updateCount(allIssues.length); 
+
+  // ^^^^^^^^
+   //updateCount Function er proyojon portase na because -- ami ***** dataDisplay Function er moddde ,datas.length dukai disi,,jothi na dukaitam thahole protita all , open, closed er updateCountFunction use kora jaitw
 })
-
-
 
 // let allIssues = [];
 
@@ -72,13 +80,15 @@ openBtn.addEventListener("click",() => {
   // document.getElementById("all-btn") === openBtn  So we can wright
   const openIssues = allIssues.filter(da =>da.status.toLowerCase()=== "open");
   dataDisplay(openIssues);
+  //  updateCount(openIssues.length);
 })
 
 closedBtn.addEventListener("click",()=>{
   const closedIssues = allIssues.filter(da => da.status === "closed");
   dataDisplay(closedIssues);
-})
+  // updateCount(closedIssues.length);
 
+})
 //-----------------------------------------------------------------------------
 
 const dataDisplay = (datas) => {
@@ -87,8 +97,16 @@ const dataDisplay = (datas) => {
   const dataContainer = document.getElementById("data-container");
   dataContainer.innerHTML = "";
 
-  // 2nd data ke loop kete hobe
+//------------------------------------------------------------------------------
+  //count er present value update rakhar jonno last a aita add korlam +--[important] for learning **********^^^-->>
+  
+  countIssues.innerText = datas.length;
+  // updateCount(datas.length);
+//-------------------------------------------------
 
+
+  // 2nd data ke loop kete hobe
+  
   datas.forEach((da) => {
     console.log(da);
 
