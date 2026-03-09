@@ -1,4 +1,3 @@
-
 // loadingSpinner id ke dorbo
 
 const loadingSpinner = document.getElementById("loadingSpinner");
@@ -12,9 +11,9 @@ function showLoading() {
 
 function hiddenLoading() {
   loadingSpinner.classList.add("hidden");
-};
+}
 
-//Issues count 
+//Issues count
 
 const countIssues = document.getElementById("count");
 
@@ -23,19 +22,16 @@ const countIssues = document.getElementById("count");
 // }
 
 const dataLod = () => {
-
   showLoading();
 
   fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues")
     .then((res) => res.json())
     .then((data) => {
-      allIssues = data.data
+      allIssues = data.data;
       dataDisplay(allIssues);
       hiddenLoading();
-    })
-   
+    });
 };
-
 
 //------------------------------------------------------------
 //For All , Open , Closed batus selection showing
@@ -49,15 +45,15 @@ function toggleFun(id) {
   openBtn.classList.remove("btn-primary");
   closedBtn.classList.remove("btn-primary");
 
-  allBtn.classList.add("btn-outline","btn-primary");
-  openBtn.classList.add("btn-outline","btn-primary");
-  closedBtn.classList.add("btn-outline","btn-primary");
+  allBtn.classList.add("btn-outline", "btn-primary");
+  openBtn.classList.add("btn-outline", "btn-primary");
+  closedBtn.classList.add("btn-outline", "btn-primary");
 
   const selectedBtn = document.getElementById(id);
-  
+
   currentStatus = id;
   selectedBtn.classList.remove("btn-outline");
-  selectedBtn.classList.add("btn-primary")
+  selectedBtn.classList.add("btn-primary");
 }
 //----------------------------------------
 //--------------------------------------------------------------------------------
@@ -65,29 +61,30 @@ function toggleFun(id) {
 
 // document.getElementById("all-btn") === allBtn  So we can wright
 
-allBtn.addEventListener("click",() => {
+allBtn.addEventListener("click", () => {
   dataDisplay(allIssues);
-  //  updateCount(allIssues.length); 
+  //  updateCount(allIssues.length);
 
   // ^^^^^^^^
-   //updateCount Function er proyojon portase na because -- ami ***** dataDisplay Function er moddde ,datas.length dukai disi,,jothi na dukaitam thahole protita all , open, closed er updateCountFunction use kora jaitw
-})
+  //updateCount Function er proyojon portase na because -- ami ***** dataDisplay Function er moddde ,datas.length dukai disi,,jothi na dukaitam thahole protita all , open, closed er updateCountFunction use kora jaitw
+});
 
 // let allIssues = [];
 
-openBtn.addEventListener("click",() => {
+openBtn.addEventListener("click", () => {
   // document.getElementById("all-btn") === openBtn  So we can wright
-  const openIssues = allIssues.filter(da =>da.status.toLowerCase()=== "open");
+  const openIssues = allIssues.filter(
+    (da) => da.status.toLowerCase() === "open",
+  );
   dataDisplay(openIssues);
   //  updateCount(openIssues.length);
-})
+});
 
-closedBtn.addEventListener("click",()=>{
-  const closedIssues = allIssues.filter(da => da.status === "closed");
+closedBtn.addEventListener("click", () => {
+  const closedIssues = allIssues.filter((da) => da.status === "closed");
   dataDisplay(closedIssues);
   // updateCount(closedIssues.length);
-
-})
+});
 //-----------------------------------------------------------------------------
 
 const dataDisplay = (datas) => {
@@ -96,13 +93,12 @@ const dataDisplay = (datas) => {
   const dataContainer = document.getElementById("data-container");
   dataContainer.innerHTML = "";
 
-//------------------------------------------------------------------------------
+  //------------------------------------------------------------------------------
   //count er present value update rakhar jonno last a aita add korlam +--[important] for learning **********^^^-->>
-  
+
   countIssues.innerText = datas.length;
   // updateCount(datas.length);
-//-------------------------------------------------
-
+  //-------------------------------------------------
 
   // 2nd data ke loop kete hobe
 
@@ -113,85 +109,120 @@ const dataDisplay = (datas) => {
 
     const dataDiv = document.createElement("div");
 
+    //==========================================================================
+    dataDiv.addEventListener("click",() => {
+
+      const detailsContainer = document.getElementById("dettails-container");
+
+    detailsContainer.innerHTML = `
+    <h1 class ="text-[19px] font-semibold " >${da.title}</h1>
+          <div class="flex gap-2">
+            <button class="rounded-2xl bg-green-400 text-red-400 border-none  font-semibold px-6 py-2 ">${da.status} </button>
+            <span>.</span>
+            <p>Opend by Fahim Ahmed</p>
+            <span>.</span>
+            <span>${da.createdAt.split("T")[0]}</span>
+          </div>
+
+          <div class="flex justify-start items-center gap-2 pb-3">
+           ${labelButtons}
+          </div>
+
+           <p class = "line-clamp-2 " >${da.description} </p>
+
+           <div class="flex gap-[90px] bg-gray-300 py-4 px-2 rounded-[7px]" >
+            <span class = "p-3">
+              <p>Assignee:</p>
+              <h2>Fahim Ahmed</h2>
+            </span>
+
+            <span class="">
+              <p>priority:</p>
+              <button class="btn-high text-[#9CA3AF] bg-[#EEEFF2] px-8 rounded-2xl py-1 uppercase ${priorityClass} ">${da.priority} </button>
+            </span>
+           </div>`;
+
+
+        document.getElementById("word_modal").showModal();
+  });
+
+    //===============================================================================
+
     //status img randomly korar jonno
-    const statusImg = da.status.toLowerCase() === "open" ? "assets/Open-Status.png" : "assets/image.png"
+    const statusImg =
+      da.status.toLowerCase() === "open"
+        ? "assets/Open-Status.png"
+        : "assets/image.png";
 
     let priorityClass = " ";
 
-    if(da.priority.toLocaleLowerCase() ==="high"){
-      priorityClass = " text-[#EF4444] bg-[#FECACA] font-semibold"
+    if (da.priority.toLocaleLowerCase() === "high") {
+      priorityClass = " text-[#EF4444] bg-[#FECACA] font-semibold";
     }
-    
-    if(da.priority.toLocaleLowerCase() ==="medium"){
-      priorityClass = "text-[#D97706] bg-[#FDE68A] font-semibold"
+
+    if (da.priority.toLocaleLowerCase() === "medium") {
+      priorityClass = "text-[#D97706] bg-[#FDE68A] font-semibold";
     }
 
     let borderColor = " ";
-    if(da.status.toLocaleLowerCase() === "open") {
-      borderColor  = "border-green-500"
-    }else{
-      borderColor = "border-[#A855F7]"
+    if (da.status.toLocaleLowerCase() === "open") {
+      borderColor = "border-green-500";
+    } else {
+      borderColor = "border-[#A855F7]";
     }
 
-
-//------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------
     //ENHANCEMENT BUTTON CREATE if habe or other button habe then show
 
     let labelButtons = "";
 
-// check enhancement ache kina
-const hasEnhancement = da.labels && da.labels.some(
-  label => label.toLowerCase() === "enhancement"
-);
+    // check enhancement ache kina
+    const hasEnhancement =
+      da.labels &&
+      da.labels.some((label) => label.toLowerCase() === "enhancement");
 
-if (hasEnhancement) {
-
-  // only enhancement button
-  labelButtons = `
+    if (hasEnhancement) {
+      // only enhancement button
+      labelButtons = `
     <button class="btn px-2 rounded-2xl py-1 uppercase text-[#00A96E] bg-[#BBF7D0] font-semibold">
       <span><i class="fa-solid fa-wand-magic-sparkles"></i></span>
       ENHANCEMENT
     </button>
   `;
+    } else {
+      // enhancement na thakle bug / help wanted
+      da.labels.forEach((lbl) => {
+        let lblClass = "";
+        let icon = "";
 
-} else {
+        if (lbl.toLowerCase() === "bug") {
+          lblClass = "text-[#EF4444] bg-[#FECACA]";
+          icon = "fa-bug";
+        }
 
-  // enhancement na thakle bug / help wanted
-  da.labels.forEach((lbl) => {
+        if (lbl.toLowerCase() === "help wanted") {
+          lblClass = "text-[#D97706] bg-[#FDE68A]";
+          icon = "fa-life-ring";
+        }
 
-    let lblClass = "";
-    let icon = "";
+        if (lbl.toLowerCase() === "documentation") {
+          lblClass = "bg-sky-300 text-sky-800 text-[10px] text-semibold ";
+          icon = "fa-file-lines";
+        }
 
-    if (lbl.toLowerCase() === "bug") {
-      lblClass = "text-[#EF4444] bg-[#FECACA]";
-      icon = "fa-bug";
-    }
+        if (lbl.toLowerCase() === "good first issue") {
+          lblClass = "bg-purple-300 text-purple-800 text-[10px] text-semibold";
+          icon = "fa-seedling";
+        }
 
-    if (lbl.toLowerCase() === "help wanted") {
-      lblClass = "text-[#D97706] bg-[#FDE68A]";
-      icon = "fa-life-ring";
-    }
-
-    if (lbl.toLowerCase() === "documentation") {
-      lblClass = "bg-sky-300 text-sky-800 text-[10px] text-semibold ";
-      icon = "fa-file-lines";
-    }
-
-    if (lbl.toLowerCase() === "good first issue") {
-      lblClass = "bg-purple-300 text-purple-800 text-[10px] text-semibold";
-      icon = "fa-seedling";
-    }
-
-    labelButtons += `
+        labelButtons += `
       <button class="btn px-2 rounded-2xl py-1 uppercase ${lblClass}">
         <span><i class="fa-solid ${icon}"></i></span>
         ${lbl}
       </button>
     `;
-  });
-
-}
-      
+      });
+    }
 
     //-------------------------------------------------
 
@@ -207,9 +238,7 @@ if (hasEnhancement) {
           <p class = "line-clamp-2 " >${da.description} </p>
 
           <div class="flex justify-start items-center gap-2 pb-3">
-
            ${labelButtons}
-          
           </div>
 
           <hr class="text-[#4e4e4e62] border-1">
@@ -227,13 +256,14 @@ if (hasEnhancement) {
 
 dataLod();
 
-//search filter secation 
+//search filter secation
 
-document.getElementById("search-btn").addEventListener("click",() =>{
+document.getElementById("search-btn").addEventListener("click", () => {
   const searchValue = document.getElementById("search-input");
   const searchValueInput = searchValue.value.trim().toLocaleLowerCase();
 
-  const yourInput = allIssues.filter(word => word.title.toLocaleLowerCase().includes(searchValueInput));
-  dataDisplay(yourInput)
-})
-
+  const yourInput = allIssues.filter((word) =>
+    word.title.toLocaleLowerCase().includes(searchValueInput),
+  );
+  dataDisplay(yourInput);
+});
