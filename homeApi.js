@@ -173,12 +173,12 @@ if (hasEnhancement) {
     }
 
     if (lbl.toLowerCase() === "documentation") {
-      lblClass = "bg-sky-300 text-sky-800 ";
+      lblClass = "bg-sky-300 text-sky-800 text-[10px] text-semibold ";
       icon = "fa-file-lines";
     }
 
     if (lbl.toLowerCase() === "good first issue") {
-      lblClass = "bg-purple-300 text-purple-800 ";
+      lblClass = "bg-purple-300 text-purple-800 text-[10px] text-semibold";
       icon = "fa-seedling";
     }
 
@@ -215,7 +215,7 @@ if (hasEnhancement) {
           <hr class="text-[#4e4e4e62] border-1">
 
           <p> #1 by ${da.author}</p>
-          <span>${da.createdAt}</span>
+          <span>${da.createdAt.split("T")[0]}</span>
           
         </div>`;
 
