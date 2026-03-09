@@ -117,7 +117,7 @@ const dataDisplay = (datas) => {
     detailsContainer.innerHTML = `
     <h1 class ="text-[19px] font-semibold " >${da.title}</h1>
           <div class="flex gap-2">
-            <button class="rounded-2xl bg-green-400 text-red-400 border-none  font-semibold px-6 py-2 ">${da.status} </button>
+            <button class="rounded-2xl bg-green-400 text-red-400 border-none  font-semibold px-3 py-1 ">${da.status} </button>
             <span>.</span>
             <p>Opend by Fahim Ahmed</p>
             <span>.</span>
@@ -130,7 +130,7 @@ const dataDisplay = (datas) => {
 
            <p class = "line-clamp-2 " >${da.description} </p>
 
-           <div class="flex gap-[90px] bg-gray-300 py-4 px-2 rounded-[7px]" >
+           <div class="flex justify-center items-center gap-[90px] bg-gray-300 py-4 px-2 rounded-[7px]" >
             <span class = "p-3">
               <p>Assignee:</p>
               <h2>Fahim Ahmed</h2>
